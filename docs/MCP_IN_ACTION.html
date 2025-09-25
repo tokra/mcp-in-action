@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MCP (Model Context Protocol) In Action</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 40px;
+      max-width: 900px;
+      color: #222;
+    }
+    h1, h2, h3 {
+      color: #003366;
+    }
+    h1 {
+      font-size: 2.4rem;
+    }
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 2em;
+    }
+    h3 {
+      font-size: 1.3rem;
+      margin-top: 1.5em;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    blockquote {
+      border-left: 4px solid #0077cc;
+      padding-left: 10px;
+      color: #555;
+      margin: 1em 0;
+      background-color: #f9f9f9;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1em 0;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    ul {
+      margin-left: 1.5em;
+    }
+    hr {
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 2em 0;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 1em 0;
+    }
+    footer {
+      margin-top: 3em;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📡 Presentation: MCP (Model Context Protocol) In Action</h1>
+  <h3>Unlocking the Power of Model Context Protocol (MCP) in Agentic AI</h3>
+
+  <h2>✈️ Agenda:</h2>
+  <ol>
+    <li>The Problem in Agentic AI World</li>
+    <li>What is MCP (Model Context Protocol)?</li>
+    <li>Why MCP Matters: Key Benefits</li>
+    <li>Architecture Overview & Workflow</li>
+    <li>What Can MCP Enable?</li>
+    <li>Why Does MCP Matter?</li>
+    <li>MCP in Action (Live Demo Overview)</li>
+    <li>Connecting MCP to Elasticsearch (RAG Use Case)</li>
+    <li>Future Outlook + Q&A</li>
+  </ol>
+
+  <hr />
+
+  <h2>1. The Problem in Agentic AI World</h2>
+  <p>Current technologies are not easily pluggable into agentic AI — each tool has its own APIs, SDKs, and integration logic, with <strong>no shared standard for interoperability</strong>. Beyond that, these tools also return data and models in non-standardized formats.</p>
+
+  <p><strong>MCP solves this by enforcing structured interaction and automatic self-discovery between clients and tools.</strong></p>
+
+  <ul>
+    <li>Standardizes how tools expose their capabilities</li>
+    <li>Allows agents to discover what tools can do</li>
+    <li>Defines structured I/O for tools</li>
+    <li>Optionally enables state tracking between tool invocations</li>
+  </ul>
+
+  <h2>2. What is MCP?</h2>
+  <blockquote><strong>Model Context Protocol (MCP)</strong> is a lightweight coordination standard for managing shared memory, tools, and execution plans between LLM agents and their environment.</blockquote>
+
+  <p><strong>MCP is like USB-C for AI</strong> — a universal port enabling secure, bidirectional communication between agents and tools.</p>
+
+  <h3>🖥️ Examples of MCP Clients & Integrations</h3>
+  <ul>
+    <li>Claude Desktop / Claude Code</li>
+    <li>LangChain</li>
+    <li>Postman</li>
+    <li>Chatbox, Dolphin‑MCP, ChatMCP</li>
+    <li>oterm, RecurseChat, Shortwave, Sourcegraph Cody, VS Code, etc.</li>
+  </ul>
+
+  <p><strong>Sources:</strong></p>
+  <ul>
+    <li><a href="https://www.anthropic.com/news/model-context-protocol">Anthropic Engineering Blog</a></li>
+    <li><a href="https://docs.anthropic.com/en/docs/mcp">Anthropic Docs – MCP</a></li>
+    <li><a href="https://modelcontextprotocol.io/clients">modelcontextprotocol.io – Clients</a></li>
+  </ul>
+
+  <h2>3. Why MCP Matters</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Challenge</th>
+        <th>Without MCP</th>
+        <th>With MCP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Multi-tool coordination</td>
+        <td>Manual & fragile</td>
+        <td>Seamless protocol-driven execution</td>
+      </tr>
+      <tr>
+        <td>Reusability</td>
+        <td>Ad-hoc</td>
+        <td>Modular components with defined contracts</td>
+      </tr>
+      <tr>
+        <td>Debugging & replay</td>
+        <td>Difficult</td>
+        <td>Full traceability and introspection</td>
+      </tr>
+      <tr>
+        <td>Search & RAG</td>
+        <td>Static</td>
+        <td>Dynamic queries with context</td>
+      </tr>
+      <tr>
+        <td>Model reasoning</td>
+        <td>Stateless</td>
+        <td>Stateful sessions with memory</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. Architecture Overview</h2>
+  <ul>
+    <li>Agents communicate via <code>fastmcp</code></li>
+    <li>MCP manages: memory, tools, and model interactions</li>
+    <li>Integrates with LangChain pipelines</li>
+  </ul>
+
+  <img src="https://mintcdn.com/mcp/4ZXF1PrDkEaJvXpn/images/mcp-simple-diagram.png?fit=max&auto=format&n=4ZXF1PrDkEaJvXpn&q=85&s=9337f8096debc55621adcaf8ca563695" alt="MCP Diagram"/>
+
+  <h3>4.1 How MCP Can Run</h3>
+  <ul>
+    <li><strong>HTTP Server</strong> – REST endpoints</li>
+    <li><strong>SSE</strong> – Streaming responses</li>
+    <li><strong>STDIO Tool Library</strong> – CLI agents / subprocess wrappers</li>
+  </ul>
+
+  <p>Useful for wrapping internal APIs (e.g. Elasticsearch, Postgres) in MCP format and publishing as internal libraries or microservices.</p>
+
+  <h2>5. What Can MCP Enable?</h2>
+  <ul>
+    <li>Agents that integrate with Google Calendar, Notion, databases, and more</li>
+    <li>Claude Code generating apps from Figma</li>
+    <li>Enterprise chatbots with multi-database access</li>
+    <li>LLMs designing 3D models for printing</li>
+  </ul>
+
+  <h2>6. Why Does MCP Matter?</h2>
+  <ul>
+    <li><strong>Developers:</strong> faster integrations, less boilerplate</li>
+    <li><strong>Agents:</strong> more tools, smarter workflows</li>
+    <li><strong>End-users:</strong> better, more capable AI experiences</li>
+  </ul>
+
+  <h2>7. MCP in Action (Live Demo Preview)</h2>
+  <ul>
+    <li>Initialize MCP server or connect via client</li>
+    <li>Load tools (e.g. ElasticSearch)</li>
+    <li>Show context evolution & reasoning</li>
+  </ul>
+
+  <p><strong>Key visual:</strong> Tool + Memory + Prompt Chain Coordination</p>
+
+  <h2>8. Connecting MCP to Elasticsearch</h2>
+  <p><strong>Use Case:</strong> Retrieval-Augmented Generation (RAG)</p>
+
+  <ul>
+    <li>Keyword, vector, or hybrid search via MCP</li>
+    <li>Self-updating queries</li>
+    <li>Context-aware results</li>
+    <li>Audit/debug friendly</li>
+  </ul>
+
+  <h2>9. Future Outlook + Q&A</h2>
+  <ul>
+    <li>MCP for autonomous agents</li>
+    <li>Community standards & open source</li>
+    <li>Interop with OSS agents (LangGraph, ReAct)</li>
+  </ul>
+
+  <hr />
+
+  <blockquote><strong>"MCP is not just a protocol. It's the nervous system for next-gen intelligent agents."</strong></blockquote>
+
+  <h3>🎥 Visuals</h3>
+  <ul>
+    <li>MCP diagram: LLM ⇄ Tools ⇄ Memory ⇄ User</li>
+    <li>Before/after comparison table</li>
+    <li>Sample JSON context object</li>
+  </ul>
+
+  <footer>
+    <p><strong>Prepared by:</strong> Tomáš Kramarič</p>
+  </footer>
+
+</body>
+</html>
